@@ -25,9 +25,9 @@ def test_append_url(mocker, url_selector, weight):
 def test_select_url(mocker, url_selector, weight):
     mocker.patch.object(url_selector, 'calculate_weight', return_value=weight)
     high_url, medium_url, low_url = "high_url", "medium_url", "low_url"
-    url_selector.high_queue.append(high_url)
-    url_selector.medium_queue.append(medium_url)
-    url_selector.low_queue.append(low_url)
+    url_selector.high_queue.put(high_url)
+    url_selector.medium_queue.put(medium_url)
+    url_selector.low_queue.put(low_url)
 
     selected_url = url_selector.select_url()
 

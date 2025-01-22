@@ -1,12 +1,13 @@
-from collections import deque
+import queue
 import random
-import threading
+import time
+
 
 class UrlSelector:
     def __init__(self, startUrl):
-        self.high_queue = deque(startUrl)
-        self.medium_queue = deque()
-        self.low_queue = deque()
+        self.high_queue = queue.Queue()
+        self.medium_queue = queue.Queue()
+        self.low_queue = queue.Queue()
 
         self.seed = startUrl
 
@@ -14,33 +15,34 @@ class UrlSelector:
         self.medium_priority_score = 20
         self.low_priority_score = 0
 
-        self.condition = threading.Condition()
-
     def calculate_weight(self):
         random.seed(self.seed)
         weight = random.randint(0, 100)
         return weight
 
-
     def append_url(self, url):
         self.seed = url
         weight = self.calculate_weight()
-        with self.condition:
-            if weight >= self.high_priority_score: self.high_queue.append(url)
-            elif weight >= self.medium_priority_score: self.medium_queue.append(url)
-            else: self.low_queue.append(url)
-            self.condition.notify()
 
+        if weight >= self.high_priority_score:
+            self.high_queue.put(url)
+        elif weight >= self.medium_priority_score:
+            self.medium_queue.put(url)
+        else:
+            self.low_queue.put(url)
 
     def select_url(self):
         weight = self.calculate_weight()
-        with self.condition:
-            while True:
-                if weight >= self.high_priority_score and self.high_queue:
-                    return self.high_queue.popleft()
-                elif weight >= self.medium_priority_score and self.medium_queue:
-                    return self.medium_queue.popleft()
-                elif weight >= 0 and self.low_queue:
-                    return self.low_queue.popleft()
-                else:
-                    self.condition.wait()
+        while True:
+            if weight >= self.high_priority_score and not self.high_queue.empty():
+                return self.high_queue.get()
+            elif weight >= self.medium_priority_score and not self.medium_queue.empty():
+                return self.medium_queue.get()
+            elif weight >= 0 and not self.low_queue.empty():
+                return self.low_queue.get()
+            else:
+                time.sleep(1)
+                continue
+
+
+url_selector = UrlSelector(["http://example.com"])

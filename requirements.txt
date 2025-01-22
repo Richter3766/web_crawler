@@ -1,3 +1,6 @@
+# 파이썬
+python-dotenv==1.0.1
+
 # 의존성 관련
 pip-tools==7.4.1
 pipreqs==0.5.0

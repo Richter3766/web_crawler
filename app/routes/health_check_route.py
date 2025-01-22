@@ -1,6 +1,6 @@
 from flask import jsonify
 from . import health_check_bp
-from ..services.HealthCheckService import health_service
+from ..services.health_check_service import health_service
 
 
 @health_check_bp.route('/health', methods=['GET'])

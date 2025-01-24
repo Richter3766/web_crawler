@@ -12,8 +12,12 @@ Flask==3.1.0
 pytest==8.3.4
 pytest-mock==3.14.0
 
-
 # 웹 크롤링
 requests==2.32.3
 beautifulsoup4==4.12.3
 
+# 데이터베이스
+greenlet==3.1.1
+mysqlclient==2.2.7
+sqlalchemy==2.0.37
+mysql-connector-python==9.2.0

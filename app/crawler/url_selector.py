@@ -9,7 +9,7 @@ class UrlSelector:
         self.medium_queue = queue.Queue()
         self.low_queue = queue.Queue()
 
-        self.seed = startUrl
+        self.seed = startUrl[0]
 
         self.high_priority_score = 50
         self.medium_priority_score = 20

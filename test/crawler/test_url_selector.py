@@ -4,7 +4,7 @@ from app.crawler.url_selector import UrlSelector
 
 @pytest.fixture
 def url_selector():
-    return UrlSelector("")
+    return UrlSelector([""])
 
 
 @pytest.mark.parametrize("weight", [60, 25, 5])

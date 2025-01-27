@@ -4,7 +4,7 @@ from app.database.model.crawled_data import CrawledData
 
 class CrawledDto:
     def __init__(self, title, contents, urls, hash_value):
-        self.url = None
+        self.url = ""
         self.title = title
         self.contents = contents
         self.urls = urls

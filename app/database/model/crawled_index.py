@@ -7,7 +7,7 @@ from app.database import Base
 class CrawledIndex(Base):
     __tablename__ = 'crawled_index'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     hash_value = Column(CHAR(64), index=True)
     url = Column(String(2048), index=True)
 

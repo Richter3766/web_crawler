@@ -9,7 +9,7 @@ from app.database import Base
 class CrawledData(Base):
     __tablename__ = 'crawled_data'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(256))
     contents = Column(Text)
     crawled_date = Column(DateTime, default=datetime.now())

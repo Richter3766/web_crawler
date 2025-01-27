@@ -1,7 +1,7 @@
 import queue
 import requests
 
-from app.app import user_agent
+from app import user_agent
 from app.crawler.parsers import GithubBlogParser, ContentParser
 
 
@@ -12,6 +12,7 @@ class Crawler:
 
     def request_html(self):
         url = self.queue.get()
+
         headers = {
             'User-Agent': user_agent
         }
@@ -22,7 +23,6 @@ class Crawler:
         except requests.exceptions.RequestException as e:
             print(f"Error fetching {url}: {e}")
             return None
-
 
     def add_url(self, url):
         self.queue.put(url)

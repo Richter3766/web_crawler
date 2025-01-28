@@ -19,18 +19,3 @@ class DataProcessor:
         if result is None:
             return data
         return None
-
-    def add_data(self, session: Session, data):
-        if isinstance(data, list):
-            session.add_all(data)
-        else:
-            session.add(data)
-
-    def commit(self, session: Session):
-        session.commit()
-
-    def rollback(self, session: Session):
-        session.rollback()
-
-    def delete_data(self, session: Session, data_id):
-        session.delete(data_id)

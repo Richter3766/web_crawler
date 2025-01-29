@@ -1,5 +1,4 @@
-from app.database import CrawledIndex
-from app.database.model.crawled_data import CrawledData
+from app.database import CrawledIndex, CrawledData
 
 
 class CrawledDto:

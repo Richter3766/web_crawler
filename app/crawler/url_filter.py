@@ -1,7 +1,5 @@
 import sqlite3
 
-from app import db_manager
-
 class UrlFilter:
     def __init__(self, db_file='crawler.db'):
         self.db_file = db_file

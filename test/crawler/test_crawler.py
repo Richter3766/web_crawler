@@ -1,8 +1,7 @@
 import pytest
 import requests
 
-from app.crawler.crawler import Crawler, github_blog_crawler
-from app.crawler.parsers import GithubBlogParser
+from app.crawler import Crawler, GithubBlogParser
 
 @pytest.fixture
 def crawler():

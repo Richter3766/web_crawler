@@ -3,12 +3,9 @@ import threading
 from urllib.parse import urlparse
 
 from app import db_manager
-from app.crawler.data_processor import DataProcessor
-from app.crawler.url_filter import UrlFilter
-from app.crawler.url_selector import url_selector
-
+from app.crawler import *
 from app.database import CrawledIndex
-from app.dto.crawled_dto import CrawledDto
+from app.dto import CrawledDto
 
 
 def process_urls(crawled_dto, url_filter):

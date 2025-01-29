@@ -2,8 +2,7 @@ import os
 
 import pytest
 
-from app.database.db_manager import DatabaseManager
-from app.database.model.crawled_data import CrawledData
+from app.database import *
 
 
 @pytest.fixture

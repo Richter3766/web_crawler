@@ -1,4 +1,4 @@
-from app.crawler.url_selector import url_selector
+from app.crawler import url_selector
 
 
 def add_url(url: str):

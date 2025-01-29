@@ -1,7 +1,7 @@
 import os
 from urllib.parse import urlparse
 
-from app.crawler.crawler import github_blog_crawler
+from app.crawler import github_blog_crawler
 from app.crawler.url_selector import UrlSelector
 
 

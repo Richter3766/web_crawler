@@ -2,9 +2,8 @@ from urllib.parse import urlparse
 
 import pytest
 
-from app.crawler.url_filter import UrlFilter
-from app.crawler.url_selector import UrlSelector
-from app.database.sqlite import clear_data_table
+from app.crawler import UrlFilter, UrlSelector
+from app.database import clear_data_table
 
 
 @pytest.fixture

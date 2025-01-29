@@ -2,7 +2,7 @@ import queue
 import requests
 
 from app import user_agent
-from app.crawler.parsers import GithubBlogParser, ContentParser
+from app.crawler import ContentParser
 
 
 class Crawler:
@@ -26,6 +26,3 @@ class Crawler:
 
     def add_url(self, url):
         self.queue.put(url)
-
-
-github_blog_crawler = Crawler(GithubBlogParser())

@@ -3,8 +3,8 @@ import hashlib
 from bs4 import BeautifulSoup
 from requests import Response
 
-from app.crawler.parsers import ContentParser
-from app.dto.crawled_dto import CrawledDto
+from app.crawler import ContentParser
+from app.dto import CrawledDto
 
 
 def generate_hash(content):

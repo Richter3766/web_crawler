@@ -1,6 +1,4 @@
-import queue
-
-from app.database.sqlite import clear_data_table, create_queue_table, save_queue_to_db, load_queue_from_db
+from app.database import *
 
 def test_queue_save():
     create_queue_table()

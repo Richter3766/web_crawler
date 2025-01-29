@@ -1,9 +1,7 @@
 import time
 
-from app.crawler.crawler import Crawler
-from app.crawler.data_processor import DataProcessor
-from app.dto.crawled_dto import CrawledDto
-
+from app.crawler import Crawler, DataProcessor
+from app.dto import CrawledDto
 
 def crawling_worker(crawler: Crawler, data_processor: DataProcessor):
     while True:

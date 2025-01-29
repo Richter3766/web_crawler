@@ -3,7 +3,7 @@ import queue
 from sqlalchemy.orm import Session
 
 from app.database import CrawledIndex
-from app.dto.crawled_dto import CrawledDto
+from app.dto import CrawledDto
 
 
 class DataProcessor:

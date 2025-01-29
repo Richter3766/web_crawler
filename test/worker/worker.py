@@ -1,24 +1,17 @@
-import threading
-
-from app.crawler.crawler import github_blog_crawler
-from app.crawler.data_processor import DataProcessor
-from app.crawler.url_filter import UrlFilter
-from app.crawler.url_selector import url_selector
-from app.database.sqlite import create_url_table
-from app.workers import create_threads
-
-from app.workers.crawler_worker import crawling_worker
-from app.workers.db_worker import db_worker
-from app.workers.url_distribution_worker import url_distribution_worker
+from app.database import *
+from app.workers import *
 
 num_threads = 3
+
+create_url_table()
+create_queue_table()
+
 data_processor = DataProcessor()
-db_name = "crawler.db"
-create_url_table(db_name)
-url_filter = UrlFilter(db_name)
+url_filter = UrlFilter()
+url_selector = UrlSelector(["12345"])
+github_blog_crawler = Crawler(GithubBlogParser())
 
-url_thread = threading.Thread(target=url_distribution_worker, args=(url_selector,))
-
+url_thread = create_threads(url_distribution_worker, num_threads, (url_selector,))
 crawling_threads = create_threads(crawling_worker, num_threads, (github_blog_crawler, data_processor))
 db_threads = create_threads(db_worker, num_threads, (data_processor, url_filter))
 

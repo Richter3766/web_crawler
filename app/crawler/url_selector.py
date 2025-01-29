@@ -43,6 +43,3 @@ class UrlSelector:
             else:
                 time.sleep(1)
                 continue
-
-
-url_selector = UrlSelector(["http://example.com"])

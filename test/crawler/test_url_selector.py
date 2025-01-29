@@ -1,6 +1,6 @@
 import pytest
 
-from app.crawler.url_selector import UrlSelector
+from app.crawler import UrlSelector
 
 @pytest.fixture
 def url_selector():

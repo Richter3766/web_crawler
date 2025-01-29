@@ -3,8 +3,7 @@ import sqlite3
 from app import db_manager
 
 class UrlFilter:
-    def __init__(self, db_file):
-        self.session = db_manager.get_session()
+    def __init__(self, db_file='crawler.db'):
         self.db_file = db_file
 
     def filter_urls(self, urls: list[str], prefix):
@@ -18,9 +17,10 @@ class UrlFilter:
             cursor.execute('SELECT url FROM url_table WHERE url = ?', (url,))
             rows = cursor.fetchall()
             if not rows:
-                cursor.execute('INSERT INTO url_table (url) VALUES (?)', (url,))
-                conn.commit()
+                url_prefix = url[:100]
+                cursor.execute('INSERT INTO url_table (url, url_prefix) VALUES (?, ?)', (url, url_prefix))
                 result.append(url)
-        cursor.close()
+
+        conn.commit()
         conn.close()
         return result

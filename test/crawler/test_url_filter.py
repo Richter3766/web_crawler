@@ -4,7 +4,7 @@ import pytest
 
 from app.crawler.url_filter import UrlFilter
 from app.crawler.url_selector import UrlSelector
-from app.database.sqlite import create_url_table, clear_data_table
+from app.database.sqlite import clear_data_table
 
 
 @pytest.fixture

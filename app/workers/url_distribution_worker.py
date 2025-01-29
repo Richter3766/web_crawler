@@ -1,11 +1,10 @@
 import os
 from urllib.parse import urlparse
 
-from app.crawler import github_blog_crawler
-from app.crawler.url_selector import UrlSelector
+from app.crawler import github_blog_crawler, url_selector
 
 
-def url_distribution_worker(url_selector: UrlSelector):
+def url_distribution_worker():
     while True:
         url = url_selector.select_url()
         print("url 선택: ", url)

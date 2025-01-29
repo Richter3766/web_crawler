@@ -1,9 +1,9 @@
 import time
 
-from app.crawler import Crawler, DataProcessor
+from app.crawler import Crawler, data_processor
 from app.dto import CrawledDto
 
-def crawling_worker(crawler: Crawler, data_processor: DataProcessor):
+def crawling_worker(crawler: Crawler):
     while True:
         data = crawler.request_html()
         if data is not None:

@@ -8,7 +8,7 @@ from app.database.model import CrawledIndex
 from app.dto import CrawledDto
 
 
-def process_urls(crawled_dto, url_filter):
+def process_urls(crawled_dto):
     parsed_url = urlparse(crawled_dto.url)
     prefix = f"{parsed_url.scheme}://{parsed_url.netloc}"
     urls = url_filter.filter_urls(crawled_dto.urls, prefix)
@@ -16,7 +16,7 @@ def process_urls(crawled_dto, url_filter):
         url_selector.append_url(url)
 
 
-def db_worker(data_processor: DataProcessor, url_filter: UrlFilter):
+def db_worker():
     session = db_manager.get_session()
     while True:
         crawled_dto: CrawledDto = data_processor.get_non_duplicate_data(session)
@@ -41,6 +41,6 @@ def db_worker(data_processor: DataProcessor, url_filter: UrlFilter):
                 continue
 
             print("크롤링 데이터 저장 종료: ", crawled_dto.url)
-            filter_worker = threading.Thread(target=process_urls, args=(crawled_dto, url_filter))
+            filter_worker = threading.Thread(target=process_urls, args=(crawled_dto, ))
             filter_worker.start()
     session.close()

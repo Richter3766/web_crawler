@@ -1,15 +1,17 @@
 import os
 import queue
+
 import requests
 
+from app import save_queue_to_db, load_queue_from_db
 from app.crawler.parsers import ContentParser
 
 user_agent = os.getenv('USER_AGENT')
 
 class Crawler:
     def __init__(self, parser: ContentParser):
-        self.queue = queue.Queue()
         self.parser = parser
+        self.queue = queue.Queue()
 
     def request_html(self):
         url = self.queue.get()
@@ -27,3 +29,9 @@ class Crawler:
 
     def add_url(self, url):
         self.queue.put(url)
+
+    def load_queue(self):
+        self.queue = load_queue_from_db(type(self.parser).__name__)
+
+    def save_queue(self):
+        save_queue_to_db(type(self.parser).__name__, self.queue)

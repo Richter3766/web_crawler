@@ -2,6 +2,8 @@ import queue
 import random
 import time
 
+from app import save_queue_to_db, load_queue_from_db
+
 
 class UrlSelector:
     def __init__(self, startUrl):
@@ -43,3 +45,14 @@ class UrlSelector:
             else:
                 time.sleep(1)
                 continue
+
+    def load_queue(self):
+        self.high_queue = load_queue_from_db("high_queue")
+        self.medium_queue = load_queue_from_db("medium_queue")
+        self.low_queue = load_queue_from_db("low_queue")
+
+
+    def save_queue(self):
+        save_queue_to_db("high_queue", self.high_queue)
+        save_queue_to_db("medium_queue", self.medium_queue)
+        save_queue_to_db("low_queue", self.low_queue)

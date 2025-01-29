@@ -10,12 +10,12 @@ def create_url_table(db_file='crawler.db'):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS urls (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            url TEXT NOT NULL UNIQUE
+            url TEXT NOT NULL UNIQUE,
             url_prefix TEXT NOT NULL
         )
     ''')
 
-    cursor.execute('CREATE INDEX IF NOT EXISTS idx_url_prefix ON url_table (url_prefix);')
+    cursor.execute('CREATE INDEX IF NOT EXISTS idx_url_prefix ON urls (url_prefix);')
 
     conn.commit()
     conn.close()

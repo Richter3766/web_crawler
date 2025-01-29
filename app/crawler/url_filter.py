@@ -12,11 +12,11 @@ class UrlFilter:
             if not url.startswith('https://'):
                 url = prefix + url
 
-            cursor.execute('SELECT url FROM url_table WHERE url = ?', (url,))
+            cursor.execute('SELECT url FROM urls WHERE url = ?', (url,))
             rows = cursor.fetchall()
             if not rows:
                 url_prefix = url[:100]
-                cursor.execute('INSERT INTO url_table (url, url_prefix) VALUES (?, ?)', (url, url_prefix))
+                cursor.execute('INSERT INTO urls (url, url_prefix) VALUES (?, ?)', (url, url_prefix))
                 result.append(url)
 
         conn.commit()

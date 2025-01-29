@@ -1,9 +1,10 @@
+import os
 import queue
 import requests
 
-from app import user_agent
-from app.crawler import ContentParser
+from app.crawler.parsers import ContentParser
 
+user_agent = os.getenv('USER_AGENT')
 
 class Crawler:
     def __init__(self, parser: ContentParser):

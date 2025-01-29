@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, CHAR
 from sqlalchemy.orm import relationship
 
-from app.database import Base
+from app.database.model.base import Base
 
 
 class CrawledIndex(Base):

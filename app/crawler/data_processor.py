@@ -2,7 +2,7 @@ import queue
 
 from sqlalchemy.orm import Session
 
-from app.database import CrawledIndex
+from app.database.model import CrawledIndex
 from app.dto import CrawledDto
 
 

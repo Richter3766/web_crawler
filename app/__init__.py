@@ -11,8 +11,6 @@ load_dotenv()
 db_url = os.getenv('DATABASE_URL')
 db_manager = DatabaseManager(db_url)
 
-user_agent = os.getenv('USER_AGENT')
-
 def create_app():
     app = Flask(__name__)
 

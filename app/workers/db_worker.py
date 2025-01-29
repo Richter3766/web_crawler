@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from app import db_manager
 from app.crawler import *
-from app.database import CrawledIndex
+from app.database.model import CrawledIndex
 from app.dto import CrawledDto
 
 

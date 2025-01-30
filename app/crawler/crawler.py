@@ -3,7 +3,7 @@ import queue
 
 import requests
 
-from app import save_queue_to_db, load_queue_from_db
+from app.database import save_queue_to_db, load_queue_from_db
 from app.crawler.parsers import ContentParser
 
 user_agent = os.getenv('USER_AGENT')
@@ -14,7 +14,10 @@ class Crawler:
         self.queue = queue.Queue()
 
     def request_html(self):
-        url = self.queue.get()
+        try:
+            url = self.queue.get(timeout=3)
+        except queue.Empty:
+            return None
 
         headers = {
             'User-Agent': user_agent

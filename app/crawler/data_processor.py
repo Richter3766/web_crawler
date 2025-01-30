@@ -2,7 +2,7 @@ import queue
 
 from sqlalchemy.orm import Session
 
-from app import save_queue_to_db, load_queue_from_db
+from app.database import save_queue_to_db, load_queue_from_db
 from app.database.model import CrawledIndex
 from app.dto import CrawledDto
 
@@ -15,7 +15,11 @@ class DataProcessor:
         self.queue.put(dto)
 
     def get_non_duplicate_data(self, session: Session):
-        data: CrawledDto = self.queue.get()
+        try:
+            data: CrawledDto = self.queue.get(timeout=3)
+        except queue.Empty:
+            return None
+
         result = session.query(CrawledIndex).filter(CrawledIndex.hash_value == data.hash_value).first()
         if result is None:
             return data

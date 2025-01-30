@@ -2,7 +2,7 @@ import queue
 import random
 import time
 
-from app import save_queue_to_db, load_queue_from_db
+from app.database import load_queue_from_db, save_queue_to_db
 
 
 class UrlSelector:
@@ -33,9 +33,13 @@ class UrlSelector:
         else:
             self.low_queue.put(url)
 
-    def select_url(self):
+    def select_url(self, total_time_out = 3):
+        start_time = time.time()
         weight = self.calculate_weight()
         while True:
+            if time.time() - start_time > total_time_out:
+                return None
+
             if weight >= self.high_priority_score and not self.high_queue.empty():
                 return self.high_queue.get()
             elif weight >= self.medium_priority_score and not self.medium_queue.empty():

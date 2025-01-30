@@ -1,11 +1,12 @@
-import threading
+from concurrent.futures import ThreadPoolExecutor
 
 from urllib.parse import urlparse
 
-from app import db_manager
+from app.database import db_manager
 from app.crawler import *
 from app.database.model import CrawledIndex
 from app.dto import CrawledDto
+from app.workers import worker_manager
 
 
 def process_urls(crawled_dto):
@@ -15,10 +16,9 @@ def process_urls(crawled_dto):
     for url in urls:
         url_selector.append_url(url)
 
-
 def db_worker():
     session = db_manager.get_session()
-    while True:
+    while worker_manager.working:
         crawled_dto: CrawledDto = data_processor.get_non_duplicate_data(session)
 
         if crawled_dto is not None:
@@ -41,6 +41,6 @@ def db_worker():
                 continue
 
             print("크롤링 데이터 저장 종료: ", crawled_dto.url)
-            filter_worker = threading.Thread(target=process_urls, args=(crawled_dto, ))
-            filter_worker.start()
+            worker_manager.create_threads(process_urls, 1, (crawled_dto, ))
+
     session.close()

@@ -3,6 +3,7 @@ import sys
 from dotenv import load_dotenv
 from flask import Flask
 
+from .crawler import *
 from .database import *
 from .routes import *
 from .workers import *
@@ -32,9 +33,10 @@ def create_db_file():
 
 
 def run_workers(num_threads):
-    url_thread = create_threads(url_distribution_worker, num_threads, ())
-    crawling_threads = create_threads(crawling_worker, num_threads, (github_blog_crawler,))
-    db_threads = create_threads(db_worker, num_threads, ())
+    worker_manager.create_threads(db_worker, num_threads, (), "db")
+    worker_manager.create_threads(url_distribution_worker, num_threads, (), "url 분배")
+    worker_manager.create_threads(crawling_worker, num_threads, (github_blog_crawler,), "크롤링")
+
 
 def load_status():
     url_selector.load_queue()
@@ -43,12 +45,16 @@ def load_status():
 
 
 def signal_handler(sig, frame):
+    print("======================= 앱 종료 시작 =======================")
+    worker_manager.wait_threads()
     save_status()
+    print("======================= 앱 종료 완료 =======================")
     sys.exit(0)
 
+
 def save_status():
-    print("저장 시작")
+    print("-------------------- 상태 저장 시작 --------------------")
     url_selector.save_queue()
     data_processor.save_queue()
     github_blog_crawler.save_queue()
-    print("저장 종료")
+    print("-------------------- 상태 저장 완료 --------------------")

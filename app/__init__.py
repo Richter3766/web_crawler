@@ -13,8 +13,8 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
 
-    register_blueprint(app)
     create_db_file()
+    register_blueprint(app)
     load_status()
     run_workers(3)
 
@@ -39,9 +39,11 @@ def run_workers(num_threads):
 
 
 def load_status():
+    failed_url_collector.load_queue()
     url_selector.load_queue()
     data_processor.load_queue()
     github_blog_crawler.load_queue()
+
 
 
 def signal_handler(sig, frame):
@@ -57,4 +59,5 @@ def save_status():
     url_selector.save_queue()
     data_processor.save_queue()
     github_blog_crawler.save_queue()
+    failed_url_collector.save_queue()
     print("-------------------- 상태 저장 완료 --------------------")

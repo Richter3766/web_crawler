@@ -3,6 +3,7 @@ import hashlib
 from bs4 import BeautifulSoup
 from requests import Response
 
+from app.crawler import failed_url_collector
 from app.crawler.parsers import ContentParser
 from app.dto import CrawledDto
 
@@ -19,6 +20,7 @@ class GithubBlogParser(ContentParser):
             urls = [a['href'] for a in soup.find_all('a', href=True)]
         except Exception as e:
             print("parser 에러: ", data.url, e)
+            failed_url_collector.append_url(data.url, e)
             return None
 
         if not title or not contents:

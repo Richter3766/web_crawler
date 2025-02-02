@@ -3,6 +3,7 @@ import os
 import pytest
 
 from app.database import *
+from app.database.model import CrawledData
 
 
 @pytest.fixture

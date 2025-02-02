@@ -1,6 +1,5 @@
 import sys
 
-from dotenv import load_dotenv
 from flask import Flask
 
 from .crawler import *
@@ -8,11 +7,12 @@ from .database import *
 from .routes import *
 from .workers import *
 
-load_dotenv()
+
 
 def create_app():
     app = Flask(__name__)
 
+    load_dotenv()
     create_db_file()
     register_blueprint(app)
     load_status()

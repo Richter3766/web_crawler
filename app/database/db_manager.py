@@ -14,7 +14,3 @@ class DatabaseManager:
 
     def get_session(self):
         return self.Session()
-
-    @staticmethod
-    def close_session(session):
-        session.close()

@@ -8,6 +8,9 @@ pipreqs==0.5.0
 # Flask
 Flask==3.1.0
 
+# WSGI
+gunicorn==23.0.0
+
 # 테스팅
 pytest==8.3.4
 pytest-mock==3.14.0

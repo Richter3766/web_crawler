@@ -8,7 +8,7 @@ from app.database.model import CrawledData
 
 @pytest.fixture
 def database_manager():
-    return DatabaseManager(os.getenv('DATABASE_URL'))
+    return DatabaseManager()
 
 def test_database(database_manager: DatabaseManager):
     database_manager.create_tables()

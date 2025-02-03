@@ -12,7 +12,6 @@ from .workers import *
 def create_app():
     app = Flask(__name__)
 
-    load_dotenv()
     create_db_file()
     register_blueprint(app)
     load_status()
